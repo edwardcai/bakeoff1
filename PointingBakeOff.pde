@@ -26,7 +26,7 @@ int numRepeats = 1; //sets the number of times each button repeats in the test
 void setup()
 {
   size(700, 700); // set the size of the window
-  //noCursor(); //hides the system cursor if you want
+  noCursor(); //hides the system cursor if you want
   noStroke(); //turn off all strokes, we're just using fills here (can change this if you want)
   textFont(createFont("Arial", 16)); //sets the font to Arial size 16
   textAlign(CENTER);
@@ -79,7 +79,7 @@ void draw()
     drawButton(i); //draw button
 
   fill(255, 0, 0, 200); // set fill color to translucent red
-  ellipse(mouseX, mouseY, 20, 20); //draw user cursor as a circle with a diameter of 20
+  ellipse(margin - 20, mouseY, 20, 20); //draw user cursor as a circle with a diameter of 20
   
   // draw arrow connecting squares
   drawArrow(x1, y1, x2, y2);
@@ -194,7 +194,17 @@ void mouseMoved()
    //can do stuff everytime the mouse is moved (i.e., not clicked)
    //https://processing.org/reference/mouseMoved_.html
   Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
-  robot.mouseMove(width/2, (height)/2); 
+  int deltaX = mouseLocation.x - mouseX;
+  int deltaY = mouseLocation.y - mouseY;
+  if (mouseY < margin) {
+    robot.mouseMove(mouseX + deltaX, margin + deltaY);    
+  }
+  if (mouseY > height - margin) {
+    robot.mouseMove(mouseX + deltaX, height - margin + deltaY);    
+  }
+  if (mouseX < padding || mouseX > width - padding) {
+    robot.mouseMove(width/2 + deltaX, mouseY + deltaY);    
+  }
 }
 
 void mouseDragged()
