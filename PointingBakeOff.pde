@@ -1,6 +1,7 @@
 import java.awt.AWTException;
 import java.awt.Rectangle;
 import java.awt.Robot;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import processing.core.PApplet;
@@ -192,6 +193,8 @@ void mouseMoved()
 {
    //can do stuff everytime the mouse is moved (i.e., not clicked)
    //https://processing.org/reference/mouseMoved_.html
+  Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
+  robot.mouseMove(width/2, (height)/2); 
 }
 
 void mouseDragged()
@@ -239,6 +242,5 @@ void keyPressed()
 
   trialNum++; //Increment trial number
 
-  //in this example code, we move the mouse back to the middle
-  //robot.mouseMove(width/2, (height)/2); //on click, move cursor to roughly center of window!
+
 }
