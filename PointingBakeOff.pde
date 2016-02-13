@@ -196,12 +196,6 @@ void mouseMoved()
   Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
   int deltaX = mouseLocation.x - mouseX;
   int deltaY = mouseLocation.y - mouseY;
-  if (mouseY < margin) {
-    robot.mouseMove(mouseX + deltaX, margin + deltaY);    
-  }
-  if (mouseY > height - margin) {
-    robot.mouseMove(mouseX + deltaX, height - margin + deltaY);    
-  }
   if (mouseX < padding || mouseX > width - padding) {
     robot.mouseMove(width/2 + deltaX, mouseY + deltaY);    
   }
