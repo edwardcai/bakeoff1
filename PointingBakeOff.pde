@@ -82,13 +82,8 @@ void draw()
   
   // draw arrow connecting squares
   drawArrow(x1, y1, x2, y2);
-  
-  // draw box around row
-  fill(200,200,200,150);
+
   noStroke();
-  mouseRow = constrain((mouseY - margin + padding/2)/(padding + buttonSize), 0, 3);
-  int rowWidth = 4 * (padding + buttonSize) - padding;
-  rect(margin, mouseRow * (padding + buttonSize) + margin - padding/2, rowWidth, buttonSize + padding);
   
 }
 
@@ -221,12 +216,10 @@ void keyPressed()
     println("Total time taken: " + (finishTime-startTime) / 1000f + " sec");
     println("Average time for each button: " + ((finishTime-startTime) / 1000f)/(float)(hits+misses) + " sec");
   }
-
-  int target = (trials.get(trialNum));
-  System.out.println(mouseRow * 4 + (key - '1'));
-  System.out.println(target);
- //check to see if mouse cursor is inside button 
-  if (mouseRow * 4 + (key - '1') == target) // test to see if hit was within bounds
+  
+  Rectangle bounds = getButtonLocation(trials.get(trialNum));
+  if ((mouseX > bounds.x - padding/2  && mouseX < bounds.x  + bounds.width + padding/2) 
+   && (mouseY > bounds.y - padding/2  && mouseY < bounds.y + bounds.height + padding/2)) // test to see if hit was within bounds
   {
     System.out.println("HIT! " + trialNum + " " + (millis() - startTime)); // success
     hits++; 
